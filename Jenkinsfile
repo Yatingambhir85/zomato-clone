@@ -45,10 +45,9 @@ pipeline{
         steps{
             script{
                withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                   sh "sudo chmod 777 /var/run/docker.sock"
-                   sh "docker build -t zomato-clone ."
-                   sh "docker tag zomato-clone:latest"
-                   sh "docker push yatingambhir/zomato-clone:latest"
+                   sh "sudo docker build -t zomato-clone ."
+                   sh "sudo docker tag zomato-clone:latest"
+                   sh "sudo docker push yatingambhir/zomato-clone:latest"
                }
             }
         }
@@ -60,7 +59,7 @@ pipeline{
     }
     stage("Deployment"){
         steps{
-            sh "docker run -itd --name zomato-clone-project -p 3000:3000 zomato-clone:latest"
+            sh "sudo docker run -itd --name zomato-clone-project -p 3000:3000 zomato-clone:latest"
         }
     }             
   }
