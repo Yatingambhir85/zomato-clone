@@ -45,7 +45,7 @@ pipeline{
         steps{
             script{
                withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
-                   sh "sudo usermod -aG docker azureuser /var/run/docker.sock"
+                   sh "sudo chmod 777 /var/run/docker.sock"
                    sh "docker build -t zomato-clone ."
                    sh "docker tag zomato-clone:latest"
                    sh "docker push yatingambhir/zomato-clone:latest"
