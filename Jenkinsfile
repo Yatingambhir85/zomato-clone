@@ -37,10 +37,12 @@ pipeline{
     }
     stage("Docker build & push"){
         steps{
-            withDockerRegister(credentialsId: '3756914b-1424-40a8-8842-f2dfd9452deb', toolName: 'docker'){
-                sh "docker build -t zomato-clone ."
-                sh "docker tag zomato-clone:latest"
-                sh "docker push yatingambhir/zomato-clone:latest"
+            script{
+               withDockerRegister(credentialsId: '3756914b-1424-40a8-8842-f2dfd9452deb', toolName: 'docker'){
+                   sh "docker build -t zomato-clone ."
+                   sh "docker tag zomato-clone:latest"
+                   sh "docker push yatingambhir/zomato-clone:latest"
+               }
             }
         }
     }
