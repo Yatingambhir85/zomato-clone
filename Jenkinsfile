@@ -36,10 +36,15 @@ pipeline{
             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
         }
     }
+    stage("Trivy FS Scan"){
+        steps{
+            sh 'trivy fs . > trivyfs.txt'
+        }
+    }
     stage("Docker build & push"){
         steps{
             script{
-               withDockerRegister(credentialsId: 'docker', toolName: 'docker'){
+               withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                    sh "docker build -t zomato-clone ."
                    sh "docker tag zomato-clone:latest"
                    sh "docker push yatingambhir/zomato-clone:latest"
