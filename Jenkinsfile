@@ -21,10 +21,39 @@ pipeline{
     stage("Sonarqube analysis"){
         steps{
             withSonarQubeEnv('sonarqube'){
-                sh ''' $SONAR_HOME/bin/sonar-scanner -Dsonar.projectName=zomato-clone -Dsonar.projectKey=zomato-clone '''
+                sh ' $SONAR_HOME/bin/sonar-scanner -Dsonar.projectName=zomato-clone -Dsonar.projectKey=zomato-clone '
             }
         }
     }
+    stage("Install Dependencies"){
+        steps{
+            sh ' npm install '
+        }
+    }
+    stage("TRIVY FS SCAN"){
+        steps{
+            sh "trivy fs . > trivy.txt"
+        }
+    }
+    stage("Docker build & push"){
+        steps{
+            withDockerRegister(credentialsId: '3756914b-1424-40a8-8842-f2dfd9452deb', toolName: 'docker'){
+                sh "docker build -t zomato-clone ."
+                sh "docker tag zomato-clone:latest"
+                sh "docker push yatingambhir/zomato-clone:latest"
+            }
+        }
+    }
+    stage("TRIVY"){
+      steps{
+          sh "trivy image yatingambhir/zomato-clone:latest > trivy.txt"
+      }
+    }
+    stage("Deployment"){
+        steps{
+            sh "docker run -itd --name zomato-clone-project -p 3000:3000 zomato-clone:latest"
+        }
+    }             
   }
 }
             
