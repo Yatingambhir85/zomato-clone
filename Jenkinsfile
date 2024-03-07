@@ -46,7 +46,7 @@ pipeline{
             script{
                withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                    sh "docker build -t zomato-clone ."
-                   sh "docker tag zomato-clone:latest"
+                   sh "docker tag zomato-clone zomato-clone:latest"
                    sh "docker push yatingambhir/zomato-clone:latest"
                }
             }
