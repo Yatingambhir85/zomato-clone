@@ -41,7 +41,7 @@ Step 3 - After all this add the necessary plugins in Jenkins and install automat
 
 Step 4 - For adding the credentials, generate the token for Sonarqube and Dockerhub (where your image will be pushed for deployment) and add them in the credentials section of Manage Jenkins :
 
-`Tokein of Sonarqube`
+`Token of Sonarqube`
 
 `Token of Dockerhub`
 
