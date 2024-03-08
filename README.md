@@ -8,10 +8,13 @@ Topic -- Zomato Clone using Jenkins
 
 
 Step 1  - Launch a Virtual Machine on any of the cloud providers (AWS, Azure, or GCP), and install the below tools:
-`Docker (for deployment)
-Jenkins (for ci/cd and automation)
-Trivy (for image scanning)
-Nginx (for reverse proxy, optional)`
+`Docker (for deployment)`
+
+`Jenkins (for ci/cd and automation)`
+
+`Trivy (for image scanning)`
+
+`Nginx (for reverse proxy, optional)`
 
 Step 2 - Once you have installed the above tools and configured them write the below commands in the terminal and add the sonarqube server using docker:
 -- `sudo chown $USER /var/run/docker.sock`,
