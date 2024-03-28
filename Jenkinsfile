@@ -59,6 +59,7 @@ pipeline{
     }
     stage("Deployment"){
         steps{
+            sh "docker stop zomato-clone-project && docker rm zomato-clone-project || true"
             sh "docker run -itd --name zomato-clone-project -p 3000:3000 zomato-clone:latest"
         }
     }             
